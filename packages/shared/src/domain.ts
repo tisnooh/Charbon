@@ -90,6 +90,8 @@ export interface HabitDTO {
   longestStreak: number;
   doneToday: boolean;
   expectedToday: boolean;
+  /** Aujourd'hui est attendu mais pas encore complété (streak en sursis). */
+  atRiskToday: boolean;
   createdAt: ISODateTime;
   updatedAt: ISODateTime;
 }

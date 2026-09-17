@@ -1,0 +1,18 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Version « maskable » : contenu réduit à ~66% dans la zone sûre (centre 80%). -->
+  <defs>
+    <linearGradient id="emberGradM" x1="360" y1="740" x2="660" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+    <linearGradient id="coalGradM" x1="330" y1="340" x2="700" y2="730" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3A3D46"/>
+      <stop offset="1" stop-color="#17181D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="#0C0D10"/>
+  <g transform="translate(512 512) scale(0.66) translate(-512 -512)">
+    <path d="M512 128 832 313v398L512 896 192 711V313L512 128Z" fill="url(#coalGradM)" stroke="rgba(255,255,255,0.14)" stroke-width="14"/>
+    <path d="M512 320c14 88-42 133-87 191-43 55-55 98-55 141a143 143 0 0 0 142 145 143 143 0 0 0 143-152c0-57-29-103-59-148-15 29-43 45-59 45 25-74 9-160-25-222Z" fill="url(#emberGradM)"/>
+  </g>
+</svg>
