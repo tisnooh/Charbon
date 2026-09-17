@@ -120,7 +120,15 @@ Aucun secret committé (`.env` gitignoré).
 - **P3** : offline-first des mutations (file d'attente SW) ; i18n ; analytics
   first-party optionnels ; rafraîchissement pull-to-refresh natif.
 
-## 9. Prochaines tâches concrètes
+## 9. Production live & prochaines tâches
+
+- Production live sandbox (tunnel Cloudflare HTTPS) : voir `docs/VALIDATION.md` §9
+  (journey public 11/11, persistance post-restart 6/6, console 0 erreur).
+- Phase native iOS/Android préparée séparément : `docs/NATIVE_PHASE.md`
+  (recommandation Capacitor, prérequis comptes Apple/Google, roadmap 7 étapes).
+  Statut stores : **APPLICATION STORE NON ENCORE CRÉÉE**.
+
+### Prochaines tâches concrètes
 
 1. Push du dépôt local vers GitHub (voir BLOCAGES EXTERNES) puis branch protection + CI.
 2. Câbler Stripe (checkout + webhook) quand les clés seront fournies.

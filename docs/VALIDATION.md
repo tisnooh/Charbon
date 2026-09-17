@@ -159,6 +159,35 @@ mêmes icônes, pricing partagé).
 | `npm run e2e:browser` | 15/15 checks Chromium + 0 erreur console |
 | `npm run demo` | 27/27 checks parcours + 25 captures |
 
+## 9. PRODUCTION LIVE (sandbox tunnélisée) — 2026-09-18
+
+- **URL publique HTTPS** (Cloudflare quick tunnel, sans compte) :
+  https://looks-fitting-virtually-dir.trycloudflare.com
+  - site : `/` · app PWA : `/app/` · API : `/api/v1/*` (même processus, NODE_ENV=production).
+- **Base** : `data/charbon.db` (SQLite/libSQL) dans le workspace persistant ;
+  preuve de persistance : restart complet du serveur puis reconnexion + données
+  intactes (`npm run check:prod -- persist` 6/6).
+- **Tests production réels** : `npm run check:prod -- journey` 11/11 (site desktop
+  + parcours mobile complet via l'URL publique, 0 erreur console) ; captures
+  `docs/screenshots/prod/`.
+- Config prod : DEV_BILLING=false (Premium → 501 honnête), cookies Secure,
+  rate-limit auth 10/10 min, SERVE_STATIC=true.
+- Incidents rencontrés & corrigés durant la mise en prod :
+  1. chemin DB réécrit par la couche sandbox (`"$ARENA_WORKSPACE"` → `$ARENA_WORKSPACE`)
+     → `.env` passé en chemins RELATIFS + fichier migré vers `data/charbon.db` ;
+  2. double serveur (EADDRINUSE) → procédure restart propre documentée ci-dessous ;
+  3. races de rendu dans prod-check (counts sans waitFor) → waits ajoutés.
+- **Limites assumées (documentées, non bloquantes)** : l'URL quick-tunnel est
+  aléatoire à chaque restart de cloudflared et l'hébergement vit dans ce sandbox
+  → pour une production durable : VPS + Docker + domaine, checklist
+  `docs/DEPLOYMENT.md` §B (blocage externe : infra/compte d'hébergement).
+  SMTP absent → reset password non envoyable en prod (e-mails en dev-outbox
+  illisibles en production par design) ; Stripe non câblé (501 honnête).
+- Procédure de relance du service dans ce sandbox :
+  `setsid nohup /tmp/cloudflared tunnel --url http://127.0.0.1:3000 --no-autoupdate > /tmp/cf.log 2>&1 &`
+  puis `setsid nohup node apps/api/dist/index.js > /tmp/prod-server.log 2>&1 &`
+  (un seul serveur à la fois ; vérifier `tail /tmp/prod-server.log`).
+
 ## 8. Fichiers de livraison
 
 - `Charbon-v0.1.0.zip` (racine workspace) : sources complètes hors node_modules/.git.
