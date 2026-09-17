@@ -1,0 +1,20 @@
+{
+  "name": "@charbon/site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Site vitrine officiel Charbon — HTML/CSS statique (Vite MPA), SEO-friendly.",
+  "scripts": {
+    "dev": "vite --port 5174 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 4174 --strictPort",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@charbon/shared": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "vite": "^8.3.0"
+  }
+}

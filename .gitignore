@@ -1,0 +1,21 @@
+# Dépendances & builds (régénérables)
+node_modules/
+dist/
+coverage/
+
+# Données locales (base SQLite/libSQL — jamais committée)
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Secrets & environnement (jamais dans Git)
+.env
+.env.*
+!.env.example
+
+# Divers
+.DS_Store
+*.log
+.tmp/

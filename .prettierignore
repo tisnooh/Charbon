@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+data
+apps/api/drizzle
+package-lock.json
+apps/mobile/public/sw.js

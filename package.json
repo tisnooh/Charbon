@@ -1,0 +1,36 @@
+{
+  "name": "charbon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Charbon — discipline, habitudes, routines, tâches, objectifs et progression. Monorepo : API Fastify/libSQL, PWA React mobile-first, site vitrine statique.",
+  "engines": {
+    "node": ">=20.16.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @charbon/shared && npm run build -w @charbon/api && npm run build -w @charbon/mobile && npm run build -w @charbon/site",
+    "dev": "npm run build -w @charbon/shared && concurrently -n api,app,site -c blue,magenta,green \"npm run dev -w @charbon/api\" \"npm run dev -w @charbon/mobile\" \"npm run dev -w @charbon/site\"",
+    "start": "node apps/api/dist/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "npm run typecheck -w @charbon/shared && npm run typecheck -w @charbon/api && npm run typecheck -w @charbon/mobile && npm run typecheck -w @charbon/site",
+    "test": "npm run test -w @charbon/shared && npm run test -w @charbon/api && npm run test -w @charbon/mobile",
+    "db:generate": "npm run db:generate -w @charbon/api",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.7",
+    "tsx": "^4.23.13",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.70.0"
+  }
+}
