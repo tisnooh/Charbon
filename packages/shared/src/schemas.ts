@@ -49,15 +49,17 @@ export const colorSchema = z.string().regex(/^#[0-9a-fA-F]{6}$/, { error: 'Coule
 export const scheduleSchema = z
   .object({
     type: z.enum(['daily', 'days_of_week']),
-    days: z.array(z.number().int().min(0).max(6)).max(7).default([]),
+    // Normalisation tolérante : déduplication + tri (le service renormalise aussi).
+    days: z
+      .array(z.number().int().min(0).max(6))
+      .max(14)
+      .default([])
+      .transform((days) => [...new Set(days)].sort((a, b) => a - b)),
   })
   .superRefine((s, ctx) => {
     if (s.type === 'days_of_week') {
       if (s.days.length < 1 || s.days.length > 7) {
-        ctx.addIssue({ code: 'custom', message: 'days_of_week requiert entre 1 et 7 jours' });
-      }
-      if (new Set(s.days).size !== s.days.length) {
-        ctx.addIssue({ code: 'custom', message: 'Jours de semaine en doublon' });
+        ctx.addIssue({ code: 'custom', message: 'days_of_week requiert entre 1 et 7 jours distincts' });
       }
     }
   });
@@ -204,6 +206,12 @@ export const routineItemUpdateSchema = routineItemSchema
   .extend({ sortOrder: z.number().int().min(0).max(1000).optional() })
   .refine((o) => Object.keys(o).length > 0, { error: 'Aucun champ à mettre à jour' });
 export type RoutineItemUpdateInput = z.infer<typeof routineItemUpdateSchema>;
+
+/** Réordonnancement atomique : liste exhaustive des ids dans l'ordre voulu. */
+export const routineItemsOrderSchema = z.object({
+  itemIds: z.array(z.uuid()).min(1).max(30),
+});
+export type RoutineItemsOrderInput = z.infer<typeof routineItemsOrderSchema>;
 
 export const routineItemCompleteSchema = z.object({
   date: isoDateSchema.optional(),

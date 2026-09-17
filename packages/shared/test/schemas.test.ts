@@ -100,11 +100,23 @@ describe('schemas — schedule', () => {
     assert.equal(r.success, true);
     if (r.success) assert.deepEqual(r.data.days, []);
   });
-  it('days_of_week : 1 à 7 jours uniques requis', () => {
+  it('days_of_week : normalise (déduplique + trie), 1 à 7 jours distincts requis', () => {
+    const dup = scheduleSchema.safeParse({ type: 'days_of_week', days: [5, 1, 1, 3] });
+    assert.equal(dup.success, true);
+    if (dup.success) assert.deepEqual(dup.data.days, [1, 3, 5]);
     assert.equal(scheduleSchema.safeParse({ type: 'days_of_week', days: [1, 3, 5] }).success, true);
     assert.equal(scheduleSchema.safeParse({ type: 'days_of_week', days: [] }).success, false);
-    assert.equal(scheduleSchema.safeParse({ type: 'days_of_week', days: [1, 1] }).success, false);
+    // 8 copies du même jour → 1 jour distinct → valide après normalisation.
+    const many = scheduleSchema.safeParse({ type: 'days_of_week', days: [2, 2, 2, 2, 2, 2, 2, 2] });
+    assert.equal(many.success, true);
+    if (many.success) assert.deepEqual(many.data.days, [2]);
     assert.equal(scheduleSchema.safeParse({ type: 'days_of_week', days: [7] }).success, false);
+    assert.equal(
+      scheduleSchema.safeParse({ type: 'days_of_week', days: [0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 0] })
+        .success,
+      false,
+      'plus de 14 entrées brutes → refusé',
+    );
   });
 });
 
