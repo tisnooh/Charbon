@@ -1,0 +1,15 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="emberGrad" x1="12" y1="40" x2="36" y2="8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+    <linearGradient id="coalGrad" x1="10" y1="12" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3A3D46"/>
+      <stop offset="1" stop-color="#17181D"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="11" fill="#0C0D10"/>
+  <path d="M24 6 38 14v20L24 42 10 34V14L24 6Z" fill="url(#coalGrad)" stroke="rgba(255,255,255,0.14)" stroke-width="1.2"/>
+  <path d="M24 15c.6 3.7-1.8 5.6-3.7 8-1.8 2.3-2.3 4.1-2.3 5.9A6 6 0 0 0 24 35a6 6 0 0 0 6-6.4c0-2.4-1.2-4.3-2.5-6.2-.6 1.2-1.8 1.9-2.5 1.9 1.1-3.1.4-6.7-1-9.3Z" fill="url(#emberGrad)"/>
+</svg>

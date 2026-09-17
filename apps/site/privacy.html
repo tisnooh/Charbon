@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confidentialité — Charbon</title>
+    <meta name="description" content="Politique de confidentialité de Charbon : quelles données, pourquoi, combien de temps, vos droits." />
+    <link rel="icon" type="image/svg+xml" href="/favicon-site.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap nav__inner">
+        <a class="nav__brand" href="/">Charbon</a>
+        <div class="nav__links"><a class="btn-cta" data-app-link href="/app/">Ouvrir l’app</a></div>
+      </div>
+    </nav>
+
+    <main class="legal">
+      <span class="eyebrow">Légal</span>
+      <h1>Politique de confidentialité</h1>
+      <p class="updated">Dernière mise à jour : septembre 2026</p>
+
+      <h2>1. Données que nous traitons</h2>
+      <ul>
+        <li><strong>Compte :</strong> nom affiché, adresse e-mail, mot de passe (stocké uniquement sous forme d’empreinte cryptographique scrypt), fuseau horaire, préférences de rappel.</li>
+        <li><strong>Contenu :</strong> objectifs, tâches, habitudes, routines, validations quotidiennes, historiques et statistiques qui en découlent.</li>
+        <li><strong>Sessions :</strong> jetons de session aléatoires stockés sous forme d’empreinte SHA-256, date d’expiration et dernière activité.</li>
+        <li><strong>Messages :</strong> contenus envoyés via le formulaire de contact du site.</li>
+      </ul>
+
+      <h2>2. Ce que nous ne faisons pas</h2>
+      <ul>
+        <li>Pas de traceurs publicitaires, pas de cookies tiers, pas de revente de données.</li>
+        <li>Pas de collecte de localisation précise : seul le fuseau horaire que vous choisissez est utilisé.</li>
+        <li>Pas de lecture de vos contenus par des tiers.</li>
+      </ul>
+
+      <h2>3. Pourquoi</h2>
+      <p>
+        Ces données servent exclusivement à faire fonctionner le service : afficher votre
+        journée, calculer vos streaks et statistiques dans votre fuseau horaire, sécuriser
+        votre compte et répondre à vos messages.
+      </p>
+
+      <h2>4. Durée de conservation</h2>
+      <p>
+        Jusqu’à la suppression de votre compte. La suppression est définitive et en cascade :
+        sessions, objectifs, tâches, habitudes, routines, validations, notifications et
+        abonnement sont effacés du serveur. Les messages de contact sont conservés le temps du
+        traitement de votre demande.
+      </p>
+
+      <h2>5. Sécurité</h2>
+      <ul>
+        <li>Mots de passe hachés avec scrypt (sel aléatoire par compte).</li>
+        <li>Cookies de session httpOnly, SameSite=Lax, Secure en production.</li>
+        <li>Isolation stricte des données entre comptes, vérifiée par des tests automatisés.</li>
+        <li>Limitation de débit sur les routes sensibles (connexion, inscription, réinitialisation).</li>
+      </ul>
+
+      <h2>6. Vos droits</h2>
+      <p>
+        Accès, rectification (depuis l’application) et effacement total (Profil → Sécurité →
+        Supprimer mon compte). Pour toute autre demande : <a href="/contact.html">formulaire de contact</a>.
+      </p>
+
+      <h2>7. Hébergement</h2>
+      <p>
+        Les données sont hébergées sur le serveur d’exploitation de Charbon (base de données
+        SQLite/libSQL chiffrée au repos selon les moyens de l’hébergeur). En cas de changement
+        d’hébergeur, cette page sera mise à jour.
+      </p>
+    </main>
+
+    <footer>
+      <div class="wrap">© <span data-year>2026</span> Charbon · <a href="/terms.html">Conditions</a> · <a href="/contact.html">Contact</a></div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
