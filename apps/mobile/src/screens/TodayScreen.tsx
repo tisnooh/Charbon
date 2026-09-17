@@ -101,7 +101,10 @@ export function TodayScreen() {
             onClick={() => void today.refetch()}
             aria-label="Actualiser"
           >
-            ↻
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 11a8 8 0 1 0-2.34 6.34" />
+              <path d="M20 5v6h-6" />
+            </svg>
           </button>
           <Link
             to="/notifications"

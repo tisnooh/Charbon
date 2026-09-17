@@ -70,6 +70,10 @@
 | B3 | Build Vite avec `base:'/'` → assets 404 sous `/app/` | `base: command==='build' ? '/app/' : '/'` ; preuve browser-e2e |
 | B4 | Sous-écrans Stats/Objectifs sans bouton retour (impasse mobile) | headers avec retour (`navigate(-1)`) ; preuve browser-e2e |
 | B5 | Réordonnancement d'items par `sortOrder` PATCH = ex-aequo instables | endpoint dédié `PUT /routines/:id/items/order` (liste exacte, atomique) + tests |
+| V1 | Cloche (lien) orange via règle globale `a{color:ember}` | `.btn--icon{color:var(--text)}` ; capture 06 régénérée |
+| V2 | Tabbar trop translucide sans `backdrop-filter` | opacité 0.94 dark & light |
+| V3 | Glyphe texte « ↻ » mal rendu | icône SVG inline |
+| V4 | Stats : cellule « jours parfaits » dupliquée | 3ᵉ cellule → « jours actifs » |
 
 ## 5. Tests & preuves d'exécution (commandes réelles)
 
@@ -84,6 +88,13 @@
 - `npm run e2e:browser` : **15/15** checks Chromium réel (viewport iPhone 390×844 +
   desktop 1280×800), **0 erreur console/page**, 9 screenshots dans
   `docs/screenshots/` (app login/today/stats/profil/abonnement, site hero/pricing).
+- `npm run demo` : **27/27** checks parcours complet en Chromium (17 étapes demandées
+  : inscription→…→persistance) + **25 captures** `docs/screenshots/journey/`.
+- `npm run seed:demo` : compte `demo@charbon.app` / `demo-12345` seedé via l'API
+  (données réelles : série 3 jours, routine, tâches, stats).
+- Audit visuel sur captures : 4 anomalies (V1-V4) trouvées, corrigées, re-capturées.
+- Voir `docs/VALIDATION.md` (livraison, PWA/natif, méthodes GitHub) et
+  `docs/DEPLOYMENT.md` (production + Stripe/SMTP/push).
 
 ## 6. Variables d'environnement (voir `.env.example`, validation zod au boot)
 
@@ -120,9 +131,10 @@ Aucun secret committé (`.env` gitignoré).
 ## 10. BLOCAGES EXTERNES
 
 - **Push vers GitHub** : le remote `tisnooh/Charbon` est vide ; mes commits sont
-  locaux. Pousser exige les identifiants du propriétaire (HTTPS + token ou SSH).
-  → Fournir un token `repo` (ou clé SSH) ; je pousserai `main` proprement
-  (historique : scaffolding → shared → api → mobile → site → docs/fixes).
+  locaux. **Méthode la plus sûre disponible ici (aucun secret dans le chat) :**
+  device flow `gh auth login` lancé par moi sous pseudo-TTY → code à usage unique
+  affiché → saisi par vous sur https://github.com/login/device → push `main` par
+  moi dans la foulée. Alternative : push depuis votre machine (archive fournie).
 - **SMTP production** : hôtes/user/pass à mettre dans `.env` (SMTP_*) ; sinon les
   e-mails restent en dev-outbox (fonctionnel en dev, insuffisant en prod).
 - **Stripe** : `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_MONTHLY`

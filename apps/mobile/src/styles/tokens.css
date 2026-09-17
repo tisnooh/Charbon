@@ -71,7 +71,7 @@
   --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.45);
   --shadow-pop: 0 20px 60px rgba(0, 0, 0, 0.6);
   --overlay: rgba(5, 6, 8, 0.6);
-  --tabbar-bg: rgba(18, 20, 25, 0.82);
+  --tabbar-bg: rgba(18, 20, 25, 0.94);
   --skeleton: linear-gradient(90deg, #1f2229 25%, #2a2e38 50%, #1f2229 75%);
   color-scheme: dark;
 }
@@ -91,7 +91,7 @@
   --shadow-soft: 0 8px 24px rgba(16, 18, 26, 0.08);
   --shadow-pop: 0 20px 50px rgba(16, 18, 26, 0.18);
   --overlay: rgba(20, 20, 24, 0.4);
-  --tabbar-bg: rgba(255, 255, 255, 0.85);
+  --tabbar-bg: rgba(255, 255, 255, 0.94);
   --skeleton: linear-gradient(90deg, #ececf0 25%, #f6f6f8 50%, #ececf0 75%);
   --ember: #ea580c;
   --ember-deep: #c2410c;

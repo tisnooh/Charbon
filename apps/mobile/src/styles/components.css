@@ -106,6 +106,8 @@
   border-radius: var(--radius-full);
   background: var(--surface-2);
   border: 1px solid var(--border);
+  /* Neutralise la couleur des <a> globaux pour les boutons-icônes en lien. */
+  color: var(--text);
 }
 
 .btn__spinner {

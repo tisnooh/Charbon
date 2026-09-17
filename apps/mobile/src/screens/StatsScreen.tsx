@@ -157,9 +157,9 @@ export function StatsScreen() {
             </div>
             <div className="stat-cell">
               <div className="stat-cell__value">
-                {stats.data.days.filter((d) => d.expected > 0 && d.rate === 1).length}
+                {stats.data.days.filter((d) => d.expected > 0).length}
               </div>
-              <div className="stat-cell__label">jours parfaits</div>
+              <div className="stat-cell__label">jours actifs</div>
             </div>
           </div>
         </>
