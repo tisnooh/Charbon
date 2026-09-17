@@ -4,8 +4,10 @@ import react from '@vitejs/plugin-react';
 // En dev, l'API tourne sur :3000. Le proxy rend les appels same-origin
 // (cookies de session fonctionnels sans CORS). En production, l'API sert
 // directement le build de l'app sous /app (voir apps/api/src/app.ts).
-export default defineConfig({
-  base: '/',
+export default defineConfig(({ command }) => ({
+  // Production : l'API sert l'app sous /app/ (même origine que le site).
+  // Dev : Vite sert à la racine de :5173.
+  base: command === 'build' ? '/app/' : '/',
   plugins: [react()],
   server: {
     port: 5173,
@@ -24,4 +26,4 @@ export default defineConfig({
     include: ['test/**/*.test.{ts,tsx}'],
     css: false,
   },
-});
+}));

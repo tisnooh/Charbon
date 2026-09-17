@@ -22,7 +22,9 @@
     "typecheck": "npm run typecheck -w @charbon/shared && npm run typecheck -w @charbon/api && npm run typecheck -w @charbon/mobile && npm run typecheck -w @charbon/site",
     "test": "npm run test -w @charbon/shared && npm run test -w @charbon/api && npm run test -w @charbon/mobile",
     "db:generate": "npm run db:generate -w @charbon/api",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run e2e:runtime",
+    "e2e:runtime": "node scripts/runtime-e2e.mjs",
+    "e2e:browser": "node scripts/browser-e2e.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

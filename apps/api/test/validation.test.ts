@@ -146,6 +146,23 @@ describe('validation & robustesse', () => {
     assert.equal(rows[0]?.message, 'Bonjour Charbon');
   });
 
+  it('POST content-type JSON + corps vide → toléré ; JSON malformé → 400', async () => {
+    const empty = await t.app.inject({
+      method: 'POST',
+      url: '/api/v1/auth/logout',
+      headers: { ...authed(u.cookie), 'content-type': 'application/json' },
+      payload: '',
+    });
+    assert.equal(empty.statusCode, 200, 'corps vide toléré');
+    const malformed = await t.app.inject({
+      method: 'POST',
+      url: '/api/v1/tasks',
+      headers: { ...authed(u.cookie), 'content-type': 'application/json' },
+      payload: '{oops',
+    });
+    assert.equal(malformed.statusCode, 400, 'JSON malformé rejeté');
+  });
+
   it('graines de sécurité : mots de passe jamais renvoyés par l’API', async () => {
     const me = await t.app.inject({ method: 'GET', url: '/api/v1/me', headers: authed(u.cookie) });
     const body = JSON.stringify(me.json());

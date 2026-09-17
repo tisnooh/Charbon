@@ -2,6 +2,7 @@
  * Objectifs — actifs / terminés / archivés, édition, archivage, suppression.
  */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { GoalDTO } from '@charbon/shared';
 import { goalCreateSchema, goalUpdateSchema } from '@charbon/shared';
 import { useGoalMutations, useGoals } from '../api/hooks.js';
@@ -17,7 +18,7 @@ import {
   TextArea,
   TextField,
 } from '../components/ui.js';
-import { PlusIcon, TargetIcon } from '../components/icons.js';
+import { ChevronLeftIcon, PlusIcon, TargetIcon } from '../components/icons.js';
 import { formatShortDate } from '../lib/format.js';
 import { useToast } from '../components/Toast.js';
 
@@ -34,6 +35,7 @@ const EMPTY: Record<StatusFilter, { icon: string; title: string; body: string }>
 };
 
 export function GoalsScreen() {
+  const navigate = useNavigate();
   const [status, setStatus] = useState<StatusFilter>('active');
   const goals = useGoals(status);
   const muts = useGoalMutations();
@@ -46,9 +48,18 @@ export function GoalsScreen() {
   return (
     <div className="screen">
       <header className="screen-header">
-        <div className="screen-header__title">
-          <h1 className="h-title">Objectifs</h1>
+        <button
+          className="btn btn--icon btn--sm"
+          style={{ width: 44, height: 44, minHeight: 44 }}
+          onClick={() => navigate(-1)}
+          aria-label="Retour"
+        >
+          <ChevronLeftIcon width={18} height={18} />
+        </button>
+        <div className="screen-header__title" style={{ alignItems: 'center' }}>
+          <h1 className="h-section">Objectifs</h1>
         </div>
+        <span style={{ width: 44 }} />
       </header>
 
       <div style={{ marginBottom: 'var(--space-4)' }}>

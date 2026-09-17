@@ -2,6 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
+
+// En production, l'API sert l'application sous /app/ (même origine que le site) ;
+// en développement, Vite la sert à la racine de :5173.
+const basename = import.meta.env.PROD ? '/app' : '/';
 import { App } from './App.js';
 import { ToastProvider } from './components/Toast.js';
 import { SessionBootstrap } from './state/session.js';
@@ -28,7 +32,7 @@ createRoot(rootEl).render(
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
         <SessionBootstrap>
-          <BrowserRouter>
+          <BrowserRouter basename={basename}>
             <App />
           </BrowserRouter>
         </SessionBootstrap>

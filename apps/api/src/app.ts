@@ -41,6 +41,24 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<BuiltApp>
     logger: options.logger ?? false,
   });
 
+  // Robustesse : un POST/PUT avec `Content-Type: application/json` et corps
+  // VIDE est toléré (→ {}), un JSON malformé reste un 400 propre.
+  // (Certains clients — curl, fetch manuels — envoient le header sans body.)
+  app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+    const raw = typeof body === 'string' ? body : String(body);
+    if (raw.trim() === '') {
+      done(null, {});
+      return;
+    }
+    try {
+      done(null, JSON.parse(raw) as unknown);
+    } catch {
+      const err = new Error('JSON invalide') as Error & { statusCode?: number };
+      err.statusCode = 400;
+      done(err, undefined);
+    }
+  });
+
   await app.register(cookie);
 
   const allowedOrigins = new Set<string>([config.appBaseUrl, config.siteBaseUrl, ...config.corsOrigins]);

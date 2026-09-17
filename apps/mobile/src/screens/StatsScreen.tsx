@@ -4,11 +4,12 @@
  * quand l'API répond 403 premium_required.
  */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { StatsRange } from '@charbon/shared';
 import { useMe, useStats } from '../api/hooks.js';
 import { ApiClientError } from '../api/client.js';
 import { Button, ErrorState, SegmentedControl, SkeletonRows } from '../components/ui.js';
+import { ChevronLeftIcon } from '../components/icons.js';
 import { formatPct, formatShortDate, weekdayShort } from '../lib/format.js';
 
 const FREE_RANGES: Array<{ value: StatsRange; label: string }> = [
@@ -23,6 +24,7 @@ const PREMIUM_RANGES: Array<{ value: StatsRange; label: string }> = [
 ];
 
 export function StatsScreen() {
+  const navigate = useNavigate();
   const me = useMe();
   const plan = me.data?.plan ?? 'free';
   const [range, setRange] = useState<StatsRange>('7d');
@@ -38,10 +40,18 @@ export function StatsScreen() {
   return (
     <div className="screen">
       <header className="screen-header">
-        <div className="screen-header__title">
-          <h1 className="h-title">Statistiques</h1>
-          <span className="xsmall muted">Ce qui se mesure s’améliore.</span>
+        <button
+          className="btn btn--icon btn--sm"
+          style={{ width: 44, height: 44, minHeight: 44 }}
+          onClick={() => navigate(-1)}
+          aria-label="Retour"
+        >
+          <ChevronLeftIcon width={18} height={18} />
+        </button>
+        <div className="screen-header__title" style={{ alignItems: 'center' }}>
+          <h1 className="h-section">Statistiques</h1>
         </div>
+        <span style={{ width: 44 }} />
       </header>
 
       <div style={{ marginBottom: 'var(--space-4)' }} className="stack stack--tight">

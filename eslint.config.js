@@ -32,4 +32,26 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
+  {
+    // Scripts Node hors TypeScript (génération d'icônes, configs).
+    files: ['**/*.mjs', 'eslint.config.js', '**/vite.config.ts', '**/drizzle.config.ts'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
+        Response: 'readonly',
+        fetch: 'readonly',
+        Buffer: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        navigator: 'readonly',
+        localStorage: 'readonly',
+      },
+    },
+  },
 );
