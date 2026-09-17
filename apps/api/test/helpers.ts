@@ -14,7 +14,10 @@ export interface TestApp extends BuiltApp {
   dispose: () => Promise<void>;
 }
 
-export async function makeTestApp(overrides: Record<string, string> = {}): Promise<TestApp> {
+export async function makeTestApp(
+  overrides: Record<string, string> = {},
+  buildOpts: { stripeGateway?: import('../src/services/stripe.service.js').StripeGateway | null } = {},
+): Promise<TestApp> {
   const dir = mkdtempSync(join(tmpdir(), 'charbon-api-test-'));
   const config = loadConfig({
     NODE_ENV: 'test',
@@ -25,7 +28,7 @@ export async function makeTestApp(overrides: Record<string, string> = {}): Promi
     APP_BASE_URL: 'http://localhost:5173',
     ...overrides,
   });
-  const built = await buildApp({ config, logger: false, serveStatic: false });
+  const built = await buildApp({ config, logger: false, serveStatic: false, ...buildOpts });
   return {
     ...built,
     dir,

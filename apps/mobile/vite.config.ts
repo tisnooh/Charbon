@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ command }) => ({
   // Production : l'API sert l'app sous /app/ (même origine que le site).
   // Dev : Vite sert à la racine de :5173.
-  base: command === 'build' ? '/app/' : '/',
+  base: command === 'build' ? (process.env.VITE_BASE ?? '/app/') : '/',
   plugins: [react()],
   server: {
     port: 5173,

@@ -18,6 +18,7 @@ const envSchema = z
     APP_BASE_URL: z.string().min(1).default('http://localhost:5173'),
     SITE_BASE_URL: z.string().min(1).default('http://localhost:5174'),
     CORS_ORIGINS: z.string().default(''),
+    COOKIE_DOMAIN: z.string().optional(),
     SMTP_HOST: z.string().optional(),
     SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(587),
     SMTP_SECURE: boolEnv.default('false'),
@@ -28,6 +29,8 @@ const envSchema = z
     SERVE_STATIC: boolEnv.default('true'),
     RATE_LIMIT_AUTH_MAX: z.coerce.number().int().min(1).default(10),
     STRIPE_SECRET_KEY: z.string().optional(),
+    STRIPE_WEBHOOK_SECRET: z.string().optional(),
+    STRIPE_PRICE_MONTHLY: z.string().optional(),
   })
   .transform((raw) => {
     const isProd = raw.NODE_ENV === 'production';
@@ -47,6 +50,7 @@ const envSchema = z
       sessionTtlDays: raw.SESSION_TTL_DAYS,
       appBaseUrl: raw.APP_BASE_URL.replace(/\/+$/, ''),
       siteBaseUrl: raw.SITE_BASE_URL.replace(/\/+$/, ''),
+      cookieDomain: raw.COOKIE_DOMAIN && raw.COOKIE_DOMAIN !== '' ? raw.COOKIE_DOMAIN : undefined,
       corsOrigins: raw.CORS_ORIGINS.split(',')
         .map((s) => s.trim())
         .filter((s) => s !== ''),
@@ -64,7 +68,8 @@ const envSchema = z
       devBilling: raw.DEV_BILLING === 'true' && !isProd,
       serveStatic: raw.SERVE_STATIC === 'true',
       rateLimitAuthMax: raw.RATE_LIMIT_AUTH_MAX,
-      stripeConfigured: raw.STRIPE_SECRET_KEY !== undefined && raw.STRIPE_SECRET_KEY !== '',
+      stripeConfigured:
+        !!raw.STRIPE_SECRET_KEY && !!raw.STRIPE_WEBHOOK_SECRET && !!raw.STRIPE_PRICE_MONTHLY,
     };
   });
 

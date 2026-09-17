@@ -16,6 +16,7 @@ import type { RoutePluginOpts } from './index.js';
 import { SESSION_COOKIE } from '../plugins/auth.js';
 import { parseWith } from '../lib/parse.js';
 import * as authService from '../services/auth.service.js';
+import { welcomeEmail } from '../lib/email-templates.js';
 
 export async function authRoutes(app: FastifyInstance, opts: RoutePluginOpts): Promise<void> {
   const { db, config } = opts.ctx;
@@ -27,6 +28,8 @@ export async function authRoutes(app: FastifyInstance, opts: RoutePluginOpts): P
     sameSite: 'lax' as const,
     secure: config.isProduction,
     maxAge: maxAgeSeconds,
+    // Mode B (sous-domaines app./api.) : cookie partagé via le domaine parent.
+    ...(config.cookieDomain ? { domain: config.cookieDomain } : {}),
   });
 
   const userAgent = (ua: string | string[] | undefined): string | undefined =>
@@ -36,6 +39,8 @@ export async function authRoutes(app: FastifyInstance, opts: RoutePluginOpts): P
     const input = parseWith(registerSchema, req.body, 'Inscription invalide');
     const { token, session } = await authService.register(db, config, input, userAgent(req.headers['user-agent']));
     reply.setCookie(SESSION_COOKIE, token, cookieOpts(config.sessionTtlDays * 86_400));
+    // E-mail de bienvenue (SMTP réel si configuré, dev-outbox sinon).
+    await opts.ctx.mailer.send({ to: session.user.email, ...welcomeEmail(session.user.name, config.appBaseUrl) });
     return reply.status(201).send(session);
   });
 
@@ -49,7 +54,10 @@ export async function authRoutes(app: FastifyInstance, opts: RoutePluginOpts): P
   app.post('/auth/logout', async (req, reply) => {
     const token = req.cookies[SESSION_COOKIE];
     await authService.logout(db, token);
-    reply.clearCookie(SESSION_COOKIE, { path: '/' });
+    reply.clearCookie(SESSION_COOKIE, {
+      path: '/',
+      ...(config.cookieDomain ? { domain: config.cookieDomain } : {}),
+    });
     return reply.send({ ok: true });
   });
 
@@ -86,7 +94,10 @@ export async function authRoutes(app: FastifyInstance, opts: RoutePluginOpts): P
     const user = await app.requireUser(req);
     const input = parseWith(deleteAccountSchema, req.body, 'Entrée invalide');
     await authService.deleteAccount(db, user.id, input);
-    reply.clearCookie(SESSION_COOKIE, { path: '/' });
+    reply.clearCookie(SESSION_COOKIE, {
+      path: '/',
+      ...(config.cookieDomain ? { domain: config.cookieDomain } : {}),
+    });
     return reply.send({ ok: true });
   });
 }

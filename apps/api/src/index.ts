@@ -43,6 +43,15 @@ async function main(): Promise<void> {
   process.on('SIGTERM', () => void shutdown('SIGTERM'));
 }
 
+process.on('unhandledRejection', (reason) => {
+  console.error({ err: reason }, 'unhandledRejection — arrêt pour restart propre (policy docker)');
+  process.exit(1);
+});
+process.on('uncaughtException', (err) => {
+  console.error({ err }, 'uncaughtException — arrêt pour restart propre (policy docker)');
+  process.exit(1);
+});
+
 main().catch((err) => {
   console.error('[charbon-api] démarrage impossible :', err);
   process.exit(1);

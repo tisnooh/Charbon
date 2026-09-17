@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: E2E runtime (serveur buildé + parcours HTTP réel)
+        run: npm run e2e:runtime
+
+  # Déploiement automatique (Option 1) : décommenter APRÈS avoir ajouté les
+  # secrets GitHub CHARBON_DEPLOY_HOST / CHARBON_DEPLOY_USER / CHARBON_DEPLOY_SSH_KEY
+  # (clé SSH dédiée, scope serveur uniquement). Ne pas activer avant staging validé.
+  # deploy:
+  #   needs: verify
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   environment: production
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Deploy via SSH
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.CHARBON_DEPLOY_HOST }}
+  #         username: ${{ secrets.CHARBON_DEPLOY_USER }}
+  #         key: ${{ secrets.CHARBON_DEPLOY_SSH_KEY }}
+  #         script: |
+  #           cd /opt/charbon && git pull --ff-only origin main \
+  #             && docker compose up -d --build \
+  #             && docker exec charbon-app-1 node scripts/backup-db.mjs

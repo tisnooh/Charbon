@@ -1,0 +1,59 @@
+# Charbon — production durable (Option 1 : VPS + Compose + Caddy)
+# Usage : cp .env.production.example .env.production (remplir), puis :
+#   docker compose up -d --build
+# Un seul container applicatif (monolithe Fastify : API + site + app) + Caddy
+# (TLS Let's Encrypt automatique). SQLite sur volume nommé : jamais éphémère.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped          # politique de redémarrage
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      DB_PATH: /data/charbon.db
+      HOST: 0.0.0.0
+      PORT: 3000
+    volumes:
+      - charbon-data:/data           # volume persistant réel (DB)
+      - charbon-backups:/backups     # backups VACUUM INTO + rétention
+    ports:
+      - "127.0.0.1:3000:3000"        # jamais exposé directement : Caddy proxyfie
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/v1/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"              # rotation des logs
+        max-file: "5"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data             # certificats Let's Encrypt persistants
+      - caddy-config:/config
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  charbon-data:
+  charbon-backups:
+  caddy-data:
+  caddy-config:

@@ -139,9 +139,9 @@ describe('auth', () => {
     const outbox = await t.app.inject({ method: 'GET', url: `/api/v1/dev/emails?to=${email}` });
     assert.equal(outbox.statusCode, 200);
     const items = outbox.json().items as Array<{ body: string; subject: string }>;
-    assert.equal(items.length, 1);
-    assert.match(items[0]!.subject, /Réinitialisation/);
-    const match = /token=([A-Za-z0-9_-]+)/.exec(items[0]!.body);
+    const resets = items.filter((m) => m.subject.includes('Réinitialisation'));
+    assert.equal(resets.length, 1, 'un seul e-mail de reset (bienvenue séparé)');
+    const match = /token=([A-Za-z0-9_-]+)/.exec(resets[0]!.body);
     assert.ok(match, 'lien de reset présent dans l’e-mail');
     const token = match[1] as string;
 

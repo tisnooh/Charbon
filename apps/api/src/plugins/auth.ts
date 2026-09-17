@@ -35,6 +35,8 @@ export interface RequestUser {
 declare module 'fastify' {
   interface FastifyRequest {
     user: RequestUser | null;
+    /** Corps brut conservé par le parseur JSON (vérification signature webhook). */
+    rawBody?: string;
   }
   interface FastifyInstance {
     db: Db;

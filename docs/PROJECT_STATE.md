@@ -120,7 +120,26 @@ Aucun secret committé (`.env` gitignoré).
 - **P3** : offline-first des mutations (file d'attente SW) ; i18n ; analytics
   first-party optionnels ; rafraîchissement pull-to-refresh natif.
 
-## 9. Production live & prochaines tâches
+## 9. Infra, statuts & prochaines tâches
+
+- **Statut officiel actuel : PREVIEW TEMPORAIRE** (sandbox + quick tunnel).
+  Définitions PREVIEW/STAGING/PRODUCTION : `docs/INFRA_AUDIT.md` §5.
+- Audit infra réel + 3 options de production durable (VPS+Compose+Caddy recommandé,
+  PaaS volumes, statique+Postgres non recommandé) : `docs/INFRA_AUDIT.md` §2.
+- Verdict DB : SQLite conservé (volume réel + backups VACUUM INTO + restauration
+  documentée) ; seuils de migration Postgres définis : `INFRA_AUDIT.md` §3.
+- Artefacts déploiement committés : `docker-compose.yml`, `deploy/Caddyfile`,
+  Dockerfile (healthcheck), `.env.production.example`, CI `.github/workflows/ci.yml`,
+  `scripts/backup-db.mjs`, `docs/RUNBOOK.md`.
+- **Stripe intégré (test mode prêt)** : checkout, webhooks signés (source de vérité
+  Premium), cancel/resume à échéance, impayés → past_due, e-mails ; 12 tests.
+  Sans credentials : 501/404 honnêtes. Protection Premium 100 % serveur.
+- **E-mails transactionnels** : bienvenue, reset, confirmation Premium, résiliation,
+  échec paiement (gabarits `lib/email-templates.ts`, transport SMTP à fournir).
+- Observabilité : `/api/v1/healthz` deep (DB), logs pino + rotation, handlers
+  fatals + restart policy, monitoring/backups : `docs/RUNBOOK.md`.
+
+### Production live & prochaines tâches
 
 - Production live sandbox (tunnel Cloudflare HTTPS) : voir `docs/VALIDATION.md` §9
   (journey public 11/11, persistance post-restart 6/6, console 0 erreur).

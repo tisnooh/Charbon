@@ -159,7 +159,10 @@ mêmes icônes, pricing partagé).
 | `npm run e2e:browser` | 15/15 checks Chromium + 0 erreur console |
 | `npm run demo` | 27/27 checks parcours + 25 captures |
 
-## 9. PRODUCTION LIVE (sandbox tunnélisée) — 2026-09-18
+## 9. PREVIEW PUBLIQUE TEMPORAIRE (sandbox tunnélisée) — 2026-09-18
+> Statut officiel : **PREVIEW TEMPORAIRE** (ni STAGING ni PRODUCTION, cf. INFRA_AUDIT.md §5).
+> Infrastructure durable : options comparées dans `docs/INFRA_AUDIT.md` §2 ; runbook
+> exploitation (logs/monitoring/backups/restauration) : `docs/RUNBOOK.md`.
 
 - **URL publique HTTPS** (Cloudflare quick tunnel, sans compte) :
   https://looks-fitting-virtually-dir.trycloudflare.com

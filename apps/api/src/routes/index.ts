@@ -5,6 +5,7 @@ import type { FastifyInstance } from 'fastify';
 import type { Db } from '../db/client.js';
 import type { AppConfig } from '../config/env.js';
 import type { Mailer } from '../lib/mailer.js';
+import type { StripeGateway } from '../services/stripe.service.js';
 import { healthRoutes } from './health.routes.js';
 import { authRoutes } from './auth.routes.js';
 import { meRoutes } from './me.routes.js';
@@ -23,6 +24,7 @@ export interface ApiContext {
   db: Db;
   config: AppConfig;
   mailer: Mailer;
+  stripeGateway: StripeGateway | null;
 }
 
 export async function registerRoutes(app: FastifyInstance, ctx: ApiContext): Promise<void> {

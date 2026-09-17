@@ -1,0 +1,26 @@
+# Caddyfile Charbon — Option 1 (VPS).
+# MODE A (MVP zéro DNS supplémentaire) : décommenter le bloc DOMAINE UNIQUE.
+# MODE B (sous-domaines www/app/api) : décommenter le bloc SOUS-DOMAINES.
+# Remplacer charbon.example par le domaine réel FOURNI (jamais de domaine fictif activé).
+
+# ---------- MODE A : domaine unique avec chemins /, /app/, /api/ ----------
+# charbon.example {
+# 	reverse_proxy app:3000
+# }
+# www.charbon.example {
+# 	redir https://charbon.example{uri} permanent
+# }
+
+# ---------- MODE B : sous-domaines ----------
+# www.charbon.example {
+# 	reverse_proxy app:3000
+# }
+# app.charbon.example {
+# 	reverse_proxy app:3000
+# }
+# api.charbon.example {
+# 	reverse_proxy app:3000
+# }
+# (En MODE B : reconstruire l'app avec VITE_BASE='/' et COOKIE_DOMAIN='.charbon.example',
+#  APP_BASE_URL=https://app.charbon.example, SITE_BASE_URL=https://www.charbon.example,
+#  CORS_ORIGINS=https://app.charbon.example,https://www.charbon.example — voir INFRA_AUDIT.md §4)

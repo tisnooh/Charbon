@@ -14,6 +14,7 @@ import { setupAuth } from './plugins/auth.js';
 import { registerErrorHandler } from './plugins/error-handler.js';
 import { createMailer } from './lib/mailer.js';
 import { registerRoutes } from './routes/index.js';
+import { createStripeGateway, type StripeGateway } from './services/stripe.service.js';
 import { frontendDistPaths, installNotFoundHandler, registerStatic } from './static.js';
 
 export interface BuildAppOptions {
@@ -22,6 +23,8 @@ export interface BuildAppOptions {
   logger?: boolean;
   /** false = ne pas servir les builds frontaux. */
   serveStatic?: boolean;
+  /** Injection de la passerelle Stripe (fake de tests) ; défaut = réelle si credentials. */
+  stripeGateway?: StripeGateway | null;
 }
 
 export interface BuiltApp {
@@ -44,8 +47,9 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<BuiltApp>
   // Robustesse : un POST/PUT avec `Content-Type: application/json` et corps
   // VIDE est toléré (→ {}), un JSON malformé reste un 400 propre.
   // (Certains clients — curl, fetch manuels — envoient le header sans body.)
-  app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+  app.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => {
     const raw = typeof body === 'string' ? body : String(body);
+    req.rawBody = raw;
     if (raw.trim() === '') {
       done(null, {});
       return;
@@ -99,7 +103,9 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<BuiltApp>
   registerErrorHandler(app);
 
   const mailer = createMailer(config, dbHandle.db);
-  await registerRoutes(app, { db: dbHandle.db, config, mailer });
+  const stripeGateway =
+    options.stripeGateway !== undefined ? options.stripeGateway : createStripeGateway(config);
+  await registerRoutes(app, { db: dbHandle.db, config, mailer, stripeGateway });
 
   const serveStatic = options.serveStatic ?? config.serveStatic;
   let served = { site: false, app: false };
