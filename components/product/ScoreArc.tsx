@@ -44,15 +44,15 @@ export function ScoreArc({ value, variant = 'swoosh', sweep, className, strokeWi
             <linearGradient
               id={gradientId}
               gradientUnits="userSpaceOnUse"
-              x1="59.2"
-              y1="2.9"
-              x2="77.6"
-              y2="89.3"
+              x1="98"
+              y1="50"
+              x2="24.3"
+              y2="90.5"
             >
-              <stop offset="0%" stopColor="#8A2A00" stopOpacity="0.3" />
-              <stop offset="6%" stopColor="#FD6A10" stopOpacity="1" />
-              <stop offset="68%" stopColor="#F05000" stopOpacity="1" />
-              <stop offset="100%" stopColor="#7A2800" stopOpacity="0.1" />
+              <stop offset="0%" stopColor="#B93A00" stopOpacity="0.45" />
+              <stop offset="5%" stopColor="#FD6A10" stopOpacity="1" />
+              <stop offset="72%" stopColor="#F85404" stopOpacity="1" />
+              <stop offset="100%" stopColor="#7A2800" stopOpacity="0.12" />
             </linearGradient>
           </defs>
           <circle
