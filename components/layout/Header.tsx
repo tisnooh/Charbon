@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { copy } from '@/content';
 import { BetaCta } from '@/components/waitlist/BetaCta';
 import { Close, Menu } from '@/components/ui/icons';
+import { LogoMark } from '@/components/ui/LogoMark';
 import { cn, container } from '@/lib/utils/cn';
 
 const NAV_IDS = copy.header.nav.map((item) => item.id);
@@ -71,7 +72,7 @@ export function Header() {
           aria-label="Charbon — retour en haut"
           onClick={() => setMenuOpen(false)}
         >
-          <span aria-hidden className="h-2 w-2 rounded-full bg-ember-500 transition-transform duration-300 group-hover:scale-125" />
+          <LogoMark className="h-3.5 w-3.5 text-ember-500 transition-transform duration-300 group-hover:scale-110" />
           <span className="text-[0.82rem] font-semibold uppercase tracking-[0.32em] text-ink-100">Charbon</span>
         </a>
 

@@ -322,12 +322,23 @@ export const en: Content = {
     },
     legalNote: 'One email only, when access opens. Nothing else.',
   },
+  cookie: {
+    text: 'We only use strictly necessary cookies and, if you accept, anonymized audience measurement. No advertising cookies.',
+    accept: 'Accept',
+    refuse: 'Refuse',
+    link: 'Learn more',
+  },
   download: {
     label: 'Download',
     title: 'Charbon is coming soon.',
     text: 'The app is not public on the App Store or Google Play yet. Join the beta to be notified of first access.',
     cta: 'Join the beta',
     note: 'No download link is available for now.',
+    statuses: [
+      { label: 'Official website', note: 'online', current: true },
+      { label: 'Charbon private beta', note: 'progressive opening', current: true },
+      { label: 'App Store & Google Play', note: 'coming soon', current: false },
+    ],
   },
   notFound: {
     code: '404',
@@ -347,6 +358,14 @@ export const en: Content = {
       { title: 'Data / privacy', text: 'Access your data, delete proofs, export.' },
       { title: 'Other', text: 'Everything else. Really.' },
     ],
+    before: {
+      title: 'Before writing',
+      items: [
+        'Check the beta status: access opens in waves.',
+        'Read the FAQ: the answer may already be there.',
+        'Include the email used for the beta, and a few screenshots if possible.',
+      ],
+    },
     contactTitle: 'Write to us',
     contactText: 'Describe your issue in a few lines, with the email used for the beta.',
     emailPlaceholder: '[SUPPORT EMAIL TO BE FILLED]',
@@ -433,6 +452,15 @@ export const en: Content = {
           ],
         },
         {
+          heading: 'Cookies',
+          paragraphs: [
+            'Only strictly necessary cookies are set without your consent.',
+            'Anonymized audience measurement and the memory of your choice activate only after acceptance.',
+            'No advertising cookies, no third-party trackers.',
+            'Your choice is stored for 6 months.',
+          ],
+        },
+        {
           heading: 'Your rights',
           paragraphs: [
             'Under GDPR, you have rights of access, rectification, erasure, restriction and portability over your data.',
@@ -487,7 +515,7 @@ export const en: Content = {
   },
   app: {
     today: {
-      greeting: 'Hello, Koffi',
+      greeting: 'Hello, Samuel',
       date: 'Friday, Aug 21 — Day 18',
       coach: 'Coach',
       scoreLabel: 'Discipline Score',
@@ -566,7 +594,7 @@ export const en: Content = {
     },
     profile: {
       label: 'Profile',
-      name: 'Koffi',
+      name: 'Samuel',
       scoreLabel: 'Discipline Score',
       score: 91,
       cta: 'Share my results',

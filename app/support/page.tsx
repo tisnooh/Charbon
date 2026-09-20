@@ -29,6 +29,19 @@ export default function SupportPage() {
       <h1 className="mt-4 text-display-lg text-ink-100">{s.title}</h1>
       <p className="mt-5 max-w-xl text-[1rem] leading-relaxed text-ink-400">{s.intro}</p>
 
+      {/* Avant d'écrire */}
+      <div className="mt-12 max-w-xl rounded-3xl border border-line bg-coal-900 p-7">
+        <h2 className="text-base font-medium tracking-tight text-ink-100">{s.before.title}</h2>
+        <ul className="mt-4 space-y-2.5">
+          {s.before.items.map((item) => (
+            <li key={item} className="flex items-baseline gap-3 text-sm leading-relaxed text-ink-400">
+              <span aria-hidden className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ember-500" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {/* Sujets */}
       <div className="mt-14 grid max-w-4xl gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2">
         {s.topics.map((topic) => (

@@ -38,6 +38,13 @@ export interface FaqItemCopy {
   a: string;
 }
 
+export interface CookieCopy {
+  text: string;
+  accept: string;
+  refuse: string;
+  link: string;
+}
+
 export interface LegalBlock {
   heading?: string;
   paragraphs?: string[];
@@ -266,7 +273,9 @@ export interface Content {
     text: string;
     cta: string;
     note: string;
+    statuses: Array<{ label: string; note: string; current: boolean }>;
   };
+  cookie: CookieCopy;
   notFound: {
     code: string;
     title: string;
@@ -277,6 +286,7 @@ export interface Content {
     label: string;
     title: string;
     intro: string;
+    before: { title: string; items: string[] };
     topics: Array<{ title: string; text: string }>;
     contactTitle: string;
     contactText: string;

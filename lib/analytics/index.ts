@@ -21,11 +21,31 @@ declare global {
 
 let cachedUtm: UtmParams | null = null;
 
+/* ── Consentement cookies ─────────────────────────────────── */
+let consent: boolean | null = null;
+
+export function getConsent(): boolean | null {
+  if (consent !== null) return consent;
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = window.localStorage.getItem('charbon:cookie-consent');
+    consent = stored === 'accepted' ? true : stored === 'refused' ? false : null;
+  } catch {
+    consent = false;
+  }
+  return consent;
+}
+
+export function setConsent(value: boolean): void {
+  consent = value;
+}
+
 /** À appeler une fois au chargement (AnalyticsProvider). */
 export function captureUtm(): UtmParams {
   if (cachedUtm) return cachedUtm;
   const empty: UtmParams = { utm_source: null, utm_medium: null, utm_campaign: null };
   if (typeof window === 'undefined') return empty;
+  if (getConsent() !== true) return empty;
 
   try {
     const stored = window.sessionStorage.getItem(UTM_STORAGE_KEY);
@@ -57,6 +77,8 @@ export function getUtm(): UtmParams {
 
 /** Envoie un événement analytics. Ne lève jamais d'exception. */
 export function track(event: AnalyticsEventName, properties: AnalyticsProperties = {}): void {
+  /* Aucune mesure sans consentement explicite. */
+  if (typeof window !== 'undefined' && getConsent() !== true) return;
   try {
     const payload: AnalyticsProperties = {
       ...properties,

@@ -2,9 +2,8 @@ import { copy } from '@/content';
 import { Reveal } from '@/components/motion/Reveal';
 import { PhoneFrame } from '@/components/product/PhoneFrame';
 import { TodayScreen } from '@/components/product/TodayScreen';
-import { BetaCta } from '@/components/waitlist/BetaCta';
-import { SecondaryCta } from '@/components/sections/SecondaryCta';
 import { cn, container } from '@/lib/utils/cn';
+import { LogoMark } from '@/components/ui/LogoMark';
 
 /**
  * HERO — promesse centrale en < 10 secondes.
@@ -28,7 +27,7 @@ export function Hero() {
         <div>
           <Reveal>
             <p className="flex items-center gap-2.5 text-label uppercase tracking-label text-ink-500">
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ember-500" />
+              <LogoMark className="h-3.5 w-3.5 text-ember-500" />
               {h.label}
             </p>
           </Reveal>
@@ -49,13 +48,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={250}>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <BetaCta source="hero" event="hero_beta_clicked" size="lg" full className="sm:w-auto">
-                {h.ctaPrimary}
-              </BetaCta>
-              <SecondaryCta href="#fonctionnement">{h.ctaSecondary}</SecondaryCta>
-            </div>
-            <p className="mt-5 text-sm text-ink-600">{h.underCta}</p>
+            <p className="mt-10 text-sm text-ink-600">{h.underCta}</p>
           </Reveal>
         </div>
 

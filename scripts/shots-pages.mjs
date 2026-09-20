@@ -23,6 +23,7 @@ for (const job of jobs) {
   const page = await browser.newPage({ viewport: job.vp });
   await page.goto(base + job.url, { waitUntil: 'load' });
   await page.waitForTimeout(1800);
+  { const r = page.getByRole('button', { name: 'Refuser' }); if (await r.count()) await r.click(); }
   if (job.anchor && job.anchor !== 'top') {
     await page.evaluate((i) => document.getElementById(i)?.scrollIntoView({ block: 'start' }), job.anchor);
     await page.waitForTimeout(1400);

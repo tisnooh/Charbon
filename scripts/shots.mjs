@@ -24,6 +24,7 @@ for (const vp of viewports) {
   const page = await browser.newPage({ viewport: { width: vp.w, height: vp.h } });
   await page.goto(base, { waitUntil: 'load' });
   await page.waitForTimeout(2200);
+  { const r = page.getByRole('button', { name: 'Refuser' }); if (await r.count()) await r.click(); }
   const overflow = await page.evaluate(() => {
     const doc = document.documentElement;
     return { scrollW: doc.scrollWidth, clientW: doc.clientWidth };
@@ -46,11 +47,12 @@ for (const vp of viewports) {
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await page.goto(base, { waitUntil: 'load' });
 await page.waitForTimeout(1800);
+  { const r = page.getByRole('button', { name: 'Refuser' }); if (await r.count()) await r.click(); }
 
 /* Modal waitlist */
-await page.locator('section#top').getByRole('button', { name: 'Rejoindre la bêta' }).click();
+await page.locator('header').getByRole('button', { name: 'Rejoindre la bêta' }).click();
 await page.waitForTimeout(700);
-const dialogVisible = await page.getByRole('dialog').isVisible();
+const dialogVisible = await page.getByRole('dialog', { name: 'Rejoins la bêta Charbon' }).isVisible();
 results.push(`${dialogVisible ? 'PASS' : 'FAIL'}  modal ouverte`);
 await page.screenshot({ path: `${out}/modal-1440.png` });
 const focusedInDialog = await page.evaluate(() => {
@@ -60,7 +62,7 @@ const focusedInDialog = await page.evaluate(() => {
 results.push(`${focusedInDialog ? 'PASS' : 'FAIL'}  focus dans la modal`);
 await page.keyboard.press('Escape');
 await page.waitForTimeout(500);
-const dialogGone = (await page.getByRole('dialog').count()) === 0;
+const dialogGone = (await page.getByRole('dialog', { name: 'Rejoins la bêta Charbon' }).count()) === 0;
 results.push(`${dialogGone ? 'PASS' : 'FAIL'}  ESC ferme la modal`);
 
 /* Sections */

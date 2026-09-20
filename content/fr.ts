@@ -322,12 +322,23 @@ export const fr: Content = {
     },
     legalNote: 'Un email uniquement, quand l’accès ouvre. Rien d’autre.',
   },
+  cookie: {
+    text: 'Nous utilisons uniquement des cookies strictement nécessaires et, si tu l’acceptes, une mesure d’audience anonymisée. Aucun cookie publicitaire.',
+    accept: 'Accepter',
+    refuse: 'Refuser',
+    link: 'En savoir plus',
+  },
   download: {
     label: 'Télécharger',
     title: 'Charbon arrive bientôt.',
     text: 'L’app n’est pas encore publique sur l’App Store ni sur Google Play. Rejoins la bêta pour être prévenu des premiers accès.',
     cta: 'Rejoindre la bêta',
     note: 'Aucun lien de téléchargement n’est disponible pour le moment.',
+    statuses: [
+      { label: 'Site officiel', note: 'en ligne', current: true },
+      { label: 'Bêta privée Charbon', note: 'ouverture progressive', current: true },
+      { label: 'App Store & Google Play', note: 'à venir', current: false },
+    ],
   },
   notFound: {
     code: '404',
@@ -347,6 +358,14 @@ export const fr: Content = {
       { title: 'Données / confidentialité', text: 'Accès à tes données, suppression des preuves, export.' },
       { title: 'Autre', text: 'Tout le reste. Vraiment.' },
     ],
+    before: {
+      title: 'Avant d’écrire',
+      items: [
+        'Vérifie le statut de la bêta : les accès ouvrent par vagues.',
+        'Consulte la FAQ : la réponse s’y trouve peut-être déjà.',
+        'Indique l’email utilisé pour la bêta, et quelques captures si possible.',
+      ],
+    },
     contactTitle: 'Nous écrire',
     contactText: 'Décris ton problème en quelques lignes, avec l’email utilisé pour la bêta.',
     emailPlaceholder: '[EMAIL SUPPORT À RENSEIGNER]',
@@ -433,6 +452,15 @@ export const fr: Content = {
           ],
         },
         {
+          heading: 'Cookies',
+          paragraphs: [
+            'Seuls des cookies strictement nécessaires au fonctionnement sont déposés sans ton accord.',
+            'La mesure d’audience anonymisée et le souvenir de ton choix ne s’activent qu’après acceptation.',
+            'Aucun cookie publicitaire, aucun traceur tiers.',
+            'Durée de conservation de ton choix : 6 mois.',
+          ],
+        },
+        {
           heading: 'Tes droits',
           paragraphs: [
             'Conformément au RGPD, tu disposes d’un droit d’accès, de rectification, d’effacement, de limitation et de portabilité de tes données.',
@@ -487,7 +515,7 @@ export const fr: Content = {
   },
   app: {
     today: {
-      greeting: 'Bonjour, Koffi',
+      greeting: 'Bonjour, Samuel',
       date: 'Vendredi 21 août — Jour 18',
       coach: 'Coach',
       scoreLabel: 'Score de discipline',
@@ -566,7 +594,7 @@ export const fr: Content = {
     },
     profile: {
       label: 'Profil',
-      name: 'Koffi',
+      name: 'Samuel',
       scoreLabel: 'Discipline Score',
       score: 91,
       cta: 'Partager mes résultats',

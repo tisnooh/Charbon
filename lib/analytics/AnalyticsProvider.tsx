@@ -7,14 +7,22 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { captureUtm, track } from '@/lib/analytics';
+import { captureUtm, getConsent, track } from '@/lib/analytics';
 
 export function AnalyticsProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
-    captureUtm();
-    track('page_view', { pathname });
+    const fire = () => {
+      captureUtm();
+      track('page_view', { pathname });
+    };
+    if (getConsent() === true) fire();
+    const onConsent = (e: Event) => {
+      if ((e as CustomEvent<{ accepted: boolean }>).detail?.accepted) fire();
+    };
+    window.addEventListener('charbon:consent', onConsent);
+    return () => window.removeEventListener('charbon:consent', onConsent);
   }, [pathname]);
 
   useEffect(() => {

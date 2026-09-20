@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { copy } from '@/content';
 import { cn, container } from '@/lib/utils/cn';
+import { LogoMark } from '@/components/ui/LogoMark';
 
 /**
  * Footer complet : produit, application, légal, statut du produit,
@@ -16,7 +17,7 @@ export function Footer() {
           {/* Marque */}
           <div>
             <div className="flex items-center gap-2.5">
-              <span aria-hidden className="h-2 w-2 rounded-full bg-ember-500" />
+              <LogoMark className="h-3.5 w-3.5 text-ember-500" />
               <span className="text-[0.82rem] font-semibold uppercase tracking-[0.32em] text-ink-100">Charbon</span>
             </div>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-500">{copy.footer.tagline}</p>
