@@ -34,7 +34,7 @@ export function TodayScreen({ c }: { c: TodayCopy }) {
         {/* Score de discipline */}
         <p className="mt-[8cqw] text-[3cqw] uppercase tracking-[0.26em] text-ink-100">{c.scoreLabel}</p>
         <div className="relative mt-[1cqw]">
-          <ScoreArc value={c.score} sweep={50} start={255} fade strokeWidth={1.6} className="absolute left-[1cqw] -top-[15cqw] h-[88cqw] w-[88cqw]" delay={300} />
+          <ScoreArc value={c.score} strokeWidth={3.6} className="absolute left-[48cqw] top-[-1cqw] h-[55cqw] w-[43cqw]" delay={300} />
           <span className="relative block text-[44cqw] font-extralight leading-[0.82] tracking-[-0.03em] text-ember-500">
             {c.score}
           </span>

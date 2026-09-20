@@ -64,9 +64,8 @@ export function ScoreSection() {
                 />
                 <ScoreArc
                   value={s.value}
-                  sweep={62}
-                  strokeWidth={1.8}
-                  className="mt-2 h-[13rem] w-[13rem] shrink-0 sm:h-[17rem] sm:w-[17rem] lg:h-[20rem] lg:w-[20rem]"
+                  strokeWidth={3.6}
+                  className="mt-0 h-[16rem] w-[12.5rem] shrink-0 sm:h-[21rem] sm:w-[16.5rem] lg:h-[25rem] lg:w-[19.5rem]"
                   delay={250}
                 />
               </div>

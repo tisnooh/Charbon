@@ -20,7 +20,7 @@ export function FocusScreen({ c, progress = 58 }: { c: FocusCopy; progress?: num
 
         {/* Anneau de progression + temps */}
         <div className="relative mt-[7cqw] h-[50cqw] w-[50cqw]">
-          <ScoreArc value={progress} strokeWidth={1.6} className="absolute inset-0" delay={200} />
+          <ScoreArc variant="ring" value={progress} strokeWidth={1.6} className="absolute inset-0" delay={200} />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-[12cqw] font-extralight leading-none tracking-[-0.02em] text-ink-100">
               {c.elapsed}
