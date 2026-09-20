@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { AnalyticsProvider } from '@/lib/analytics/AnalyticsProvider';
 import { WaitlistProvider } from '@/components/waitlist/WaitlistContext';
+import { getSiteUrl } from '@/lib/utils/site-url';
 import './globals.css';
 
 /**
@@ -17,7 +18,7 @@ const inter = Inter({
   variable: '--font-sans',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

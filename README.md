@@ -250,4 +250,3 @@ sans backend ni Supabase :
 
 Ce mode est désactivé en production par défaut. Pour un staging de prévisualisation :
 `NEXT_PUBLIC_CHARBON_DEMO=1 npm run build` (variable inlinée au build).
-"# charbon" 
