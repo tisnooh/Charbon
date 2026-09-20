@@ -20,8 +20,8 @@ export function TabBar({ tabs, active = 0 }: TabBarProps) {
               key={label}
               className={cn('flex flex-col items-center gap-[0.9cqw]', i === active ? 'text-ember-500' : 'text-ink-600')}
             >
-              <TabIcon className="h-[4.4cqw] w-[4.4cqw]" />
-              <span className="text-[2.2cqw] font-medium">{label}</span>
+              <TabIcon className="h-[4.8cqw] w-[4.8cqw]" strokeWidth={2.2} />
+              <span className="text-[2.4cqw] font-medium">{label}</span>
             </div>
           );
         })}

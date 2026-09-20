@@ -61,7 +61,7 @@ export function Hero() {
 
         {/* Mockup — écran Aujourd'hui */}
         <Reveal delay={330} threshold={0.05}>
-          <div className="mx-auto w-[min(82vw,360px)] md:w-[360px] lg:w-[min(100%,400px)]">
+          <div className="mx-auto w-[min(84vw,380px)] md:w-[380px] lg:w-[min(100%,440px)]">
             <PhoneFrame label={h.mockupNote}>
               <TodayScreen c={copy.app.today} />
             </PhoneFrame>
