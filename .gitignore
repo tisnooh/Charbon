@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# Env & secrets — ne jamais committer
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel/
+
+# Tests / coverage
+coverage/
+playwright-report/
+test-results/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Caches
+.cache/
+.parcel-cache/
+.turbo/
+
+# Fichiers temporaires
+*.tmp
+*.bak
+tmp/
+temp/
+*.tsbuildinfo

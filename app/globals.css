@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   CHARBON — base styles & design system
+   Tokens : voir tailwind.config.ts (couleurs, type scale, radius)
+   ───────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --header-h: 4.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-coal-950 font-sans text-ink-100 antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #f85404;
+    color: #0a0a0a;
+  }
+
+  /* Focus visible — signal orange braise */
+  :focus-visible {
+    outline: 2px solid #ff6a1a;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Compensation du header sticky pour les ancres */
+  section[id],
+  div[id^='section-'] {
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Petit label de section — uppercase, tracking large */
+  .eyebrow {
+    @apply text-label uppercase text-ember-500;
+  }
+
+  .eyebrow-muted {
+    @apply text-label uppercase text-ink-500;
+  }
+
+  /* Séparateur capillaire */
+  .hairline {
+    @apply border-t border-line;
+  }
+
+  /* Reveal au scroll (géré par components/motion/Reveal) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Halo braise très discret (5 % d'orange) */
+  .glow-ember {
+    background: radial-gradient(
+      var(--glow-r, 620px) circle at var(--glow-x, 72%) var(--glow-y, 18%),
+      rgba(248, 84, 4, 0.07),
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+
+  /* Champ de formulaire */
+  .field {
+    @apply w-full rounded-xl border border-line-strong bg-coal-800 px-4 py-3.5
+      text-[0.95rem] text-ink-100 placeholder:text-ink-600
+      transition-colors duration-200
+      hover:border-ink-700 focus:border-ember-500 focus:outline-none;
+  }
+}
+
+/* ── Reduced motion : respect système ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Modal : fondu du backdrop ────────────────────────────── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 240ms ease-out both;
+}
