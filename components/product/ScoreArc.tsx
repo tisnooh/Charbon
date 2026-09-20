@@ -8,9 +8,12 @@ import { cn } from '@/lib/utils/cn';
 interface ScoreArcProps {
   /** Valeur 0–100 (sémantique : le score). */
   value: number;
-  /** Portion du cercle dessinée (0–100). Défaut : value.
-   *  Fidèle aux captures : l'arc visuel est plus court que le score. */
+  /** Portion du cercle dessinée (0–100). Défaut : value. */
   sweep?: number;
+  /** Angle de départ en degrés (convention écran : 270 = 12 h). Défaut : 270. */
+  start?: number;
+  /** Fondu + extrémité fine en fin de trait, comme l'app. */
+  fade?: boolean;
   className?: string;
   strokeWidth?: number;
   /** Délai de dessin (ms). */
@@ -22,7 +25,7 @@ interface ScoreArcProps {
  * arc partiel, trait fin, dégradé braise qui s'éteint, extrémité ronde.
  * Se dessine à l'entrée dans le viewport ; instantané si reduced-motion.
  */
-export function ScoreArc({ value, sweep, className, strokeWidth = 2.4, delay = 0 }: ScoreArcProps) {
+export function ScoreArc({ value, sweep, start = 270, fade = false, className, strokeWidth = 2.4, delay = 0 }: ScoreArcProps) {
   const gradientId = useId().replace(/[^a-zA-Z0-9]/g, '');
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
   const reduced = useReducedMotion();
@@ -32,12 +35,13 @@ export function ScoreArc({ value, sweep, className, strokeWidth = 2.4, delay = 0
 
   return (
     <div ref={ref} aria-hidden className={cn('pointer-events-none', className)}>
-      <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+      <svg viewBox="0 0 100 100" className="h-full w-full" style={{ transform: `rotate(${start}deg)` }}>
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#FD6A10" />
             <stop offset="55%" stopColor="#F05000" />
-            <stop offset="100%" stopColor="#7A2800" />
+            <stop offset="85%" stopColor="#B93A00" stopOpacity={fade ? 0.55 : 1} />
+            <stop offset="100%" stopColor="#7A2800" stopOpacity={fade ? 0.12 : 1} />
           </linearGradient>
         </defs>
         <circle

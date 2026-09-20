@@ -22,7 +22,7 @@ export function TodayScreen({ c }: { c: TodayCopy }) {
         {/* En-tête : bonjour + date + Coach discret */}
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-[3cqw] font-semibold uppercase tracking-[0.12em] text-ink-100">{c.greeting}</p>
+            <p className="text-[2.7cqw] font-semibold uppercase tracking-[0.12em] text-ink-100">{c.greeting}</p>
             <p className="mt-[1.4cqw] text-[2.7cqw] text-ink-500">{c.date}</p>
           </div>
           <div className="flex items-center gap-[1.4cqw] pt-[0.6cqw]">
@@ -32,23 +32,23 @@ export function TodayScreen({ c }: { c: TodayCopy }) {
         </div>
 
         {/* Score de discipline */}
-        <p className="mt-[8cqw] text-[2.5cqw] uppercase tracking-[0.28em] text-ink-100">{c.scoreLabel}</p>
+        <p className="mt-[8cqw] text-[3cqw] uppercase tracking-[0.26em] text-ink-100">{c.scoreLabel}</p>
         <div className="relative mt-[1cqw]">
-          <ScoreArc value={c.score} sweep={40} strokeWidth={1.5} className="absolute left-[6cqw] -top-[14cqw] h-[86cqw] w-[86cqw]" delay={300} />
+          <ScoreArc value={c.score} sweep={50} start={255} fade strokeWidth={1.6} className="absolute left-[1cqw] -top-[15cqw] h-[88cqw] w-[88cqw]" delay={300} />
           <span className="relative block text-[44cqw] font-extralight leading-[0.82] tracking-[-0.03em] text-ember-500">
             {c.score}
           </span>
-          <p className="relative mt-[3cqw] text-[3.3cqw] font-medium text-ember-500">{c.delta}</p>
+          <p className="relative mt-[3cqw] text-[3.4cqw] font-medium text-ember-500">{c.delta}</p>
         </div>
 
         {/* Insight IA */}
         <div className="mt-[6cqw] flex items-start gap-[2.2cqw]">
           <Spark className="mt-[0.5cqw] h-[3.1cqw] w-[3.1cqw] shrink-0 text-ember-500" />
-          <p className="text-[2.6cqw] leading-[1.45] text-ink-400">{c.insight}</p>
+          <p className="text-[2.3cqw] leading-[1.5] text-ink-400">{c.insight}</p>
         </div>
 
         {/* Streak + engagements */}
-        <div className="mt-[6.5cqw] flex items-center gap-[2.2cqw] text-[2.8cqw]">
+        <div className="mt-[6.5cqw] flex items-center gap-[2.2cqw] text-[3.2cqw]">
           <Flame className="h-[3.6cqw] w-[3.6cqw] shrink-0 text-ember-500" />
           <span className="font-medium text-ink-100">{c.streak}</span>
           <span aria-hidden className="text-ink-700">|</span>
@@ -66,7 +66,7 @@ export function TodayScreen({ c }: { c: TodayCopy }) {
                   <p className="text-[3.4cqw] font-medium leading-[1.3] text-ink-100">
                     {e.time} — {e.title}
                   </p>
-                  <p className="mt-[1.2cqw] text-[2.65cqw] text-ink-500">
+                  <p className="mt-[1.2cqw] text-[2.8cqw] text-ink-500">
                     <span className="text-ember-500">{e.priority}</span> — {e.status}
                   </p>
                 </div>
@@ -78,7 +78,7 @@ export function TodayScreen({ c }: { c: TodayCopy }) {
 
         {/* Bouton Commencer — calé juste au-dessus de la tab bar, comme l'app */}
         <div className="mt-auto flex justify-end pt-[3cqw]">
-          <span className="rounded-pill bg-ember-500 px-[8.5cqw] py-[2.6cqw] text-[2.9cqw] font-semibold text-coal-950">
+          <span className="rounded-pill bg-ember-500 px-[9cqw] py-[2.2cqw] text-[3.4cqw] font-semibold text-coal-950">
             {c.cta}
           </span>
         </div>
