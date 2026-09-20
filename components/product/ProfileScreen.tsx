@@ -20,7 +20,7 @@ export function ProfileScreen({ c, tabs }: { c: ProfileCopy; tabs: string[] }) {
 
         {/* Score */}
         <div className="relative mt-[6cqw]">
-          <ScoreArc value={c.score} strokeWidth={4} className="absolute right-[2cqw] top-[-2cqw] h-[42cqw] w-[33cqw]" delay={200} />
+          <ScoreArc value={c.score} strokeWidth={2.6} className="absolute right-[1cqw] top-[-3cqw] aspect-square w-[62cqw]" delay={200} />
           <span className="relative block text-[30cqw] font-extralight leading-[0.95] tracking-[-0.03em] text-ember-500">
             {c.score}
           </span>

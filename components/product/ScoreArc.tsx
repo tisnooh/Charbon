@@ -28,7 +28,7 @@ interface ScoreArcProps {
  * cœur braise brillant. Se dessine à l'entrée dans le viewport ;
  * instantané si prefers-reduced-motion.
  */
-export function ScoreArc({ value, variant = 'swoosh', sweep, className, strokeWidth = 2, delay = 0 }: ScoreArcProps) {
+export function ScoreArc({ value, variant = 'swoosh', sweep, className, strokeWidth = 2.25, delay = 0 }: ScoreArcProps) {
   const gradientId = useId().replace(/[^a-zA-Z0-9]/g, '');
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
   const reduced = useReducedMotion();
@@ -39,24 +39,34 @@ export function ScoreArc({ value, variant = 'swoosh', sweep, className, strokeWi
   return (
     <div ref={ref} aria-hidden className={cn('pointer-events-none', className)}>
       {variant === 'swoosh' ? (
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full">
+        <svg viewBox="0 0 100 100" className="h-full w-full">
           <defs>
-            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#8A2A00" stopOpacity="0.25" />
-              <stop offset="14%" stopColor="#FD6A10" stopOpacity="1" />
-              <stop offset="62%" stopColor="#F05000" stopOpacity="1" />
-              <stop offset="100%" stopColor="#7A2800" stopOpacity="0.12" />
+            <linearGradient
+              id={gradientId}
+              gradientUnits="userSpaceOnUse"
+              x1="59.2"
+              y1="2.9"
+              x2="77.6"
+              y2="89.3"
+            >
+              <stop offset="0%" stopColor="#8A2A00" stopOpacity="0.3" />
+              <stop offset="6%" stopColor="#FD6A10" stopOpacity="1" />
+              <stop offset="68%" stopColor="#F05000" stopOpacity="1" />
+              <stop offset="100%" stopColor="#7A2800" stopOpacity="0.1" />
             </linearGradient>
           </defs>
-          <path
-            d="M 14 2 C 58 5, 97 24, 97 51 C 97 79, 76 96, 56 99"
+          <circle
+            cx="50"
+            cy="50"
+            r="48"
             fill="none"
             stroke={`url(#${gradientId})`}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             pathLength={100}
-            strokeDasharray="100"
+            strokeDasharray={`${Math.max(0, Math.min(100, sweep ?? 34))} 100`}
             strokeDashoffset={drawn ? 0 : 100}
+            transform="rotate(281 50 50)"
             style={{ transition }}
           />
         </svg>

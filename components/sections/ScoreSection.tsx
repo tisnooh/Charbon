@@ -56,7 +56,7 @@ export function ScoreSection() {
             />
 
             <div className="relative">
-              <div className="flex items-start">
+              <div className="relative">
                 <CountUp
                   value={s.value}
                   aria-label={`${s.value} sur 100`}
@@ -64,8 +64,7 @@ export function ScoreSection() {
                 />
                 <ScoreArc
                   value={s.value}
-                  strokeWidth={3.6}
-                  className="mt-0 h-[16rem] w-[12.5rem] shrink-0 sm:h-[21rem] sm:w-[16.5rem] lg:h-[25rem] lg:w-[19.5rem]"
+                  className="absolute left-[13%] top-[-7%] aspect-square w-[74%]"
                   delay={250}
                 />
               </div>
